@@ -14,13 +14,15 @@ namespace s21 {
 
         ~Validator() {}
 
-        std::string s21_add_member(std::string str);
+        std::string s21_add_member(const std::string& str);
 
         std::string s21_remove_one_member();
 
         std::string s21_remove_all();
 
         std::string s21_result_equation_to_string();
+
+        bool s21_validate_result_string();
 
     private:
         std::string _last_member;
@@ -29,11 +31,25 @@ namespace s21 {
 
         Utility utility;
 
-        bool s21_check_last(std::string next);
+        void s21_check_current(const std::string& current);
 
-        bool s21_check_next(std::string next);
+        void s21_validate_after_left_bracket(const std::string& current);
 
+        void s21_validate_after_right_bracket(const std::string& current);
 
+        void s21_validate_after_number(const std::string& current);
+
+        void s21_validate_first(const std::string& current);
+
+        void s21_validate_after_x(const std::string& current);
+
+        void s21_validate_after_operator(const std::string& current);
+
+        void s21_insert_member(const std::string& str);
+
+        std::string s21_trim(std::string str);
+
+        void s21_init_last();
         };
 
 };  //  namespace s21

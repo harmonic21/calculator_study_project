@@ -19,6 +19,8 @@ namespace s21 {
 
         std::string s21_delete_all();
 
+        bool s21_validate_equation();
+
     private:
         CalculateModel* _calculateModel;
     };

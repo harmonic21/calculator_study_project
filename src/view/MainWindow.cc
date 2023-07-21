@@ -72,10 +72,14 @@ void MainWindow::s21_del_all_equation_process() {
 
 void MainWindow::s21_equal_process() {
     std::string equation = _output_string.toLocal8Bit().data();
-    long double calculation_result = _controller->s21_calculation(equation);
-     ui->label_result->setText(QString::number(calculation_result, 'g', 10));
 
-     _output_string = QString::fromStdString(_controller->s21_delete_all());
+    if (_controller->s21_validate_equation()) {
+        long double calculation_result = _controller->s21_calculation(equation);
+        ui->label_result->setText(QString::number(calculation_result, 'g', 10));
+    } else {
+        ui->label_result->setText("Illegal format");
+    }
+    _output_string = QString::fromStdString(_controller->s21_delete_all());
 }
 
 void MainWindow::s21_open_graph() {

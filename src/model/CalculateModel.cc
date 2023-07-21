@@ -16,6 +16,10 @@ namespace s21 {
         return validator.s21_remove_all();
     }
 
+    bool CalculateModel::s21_validate_equation() {
+        return validator.s21_validate_result_string();
+    }
+
     long double CalculateModel::s21_calculate(std::string equation) {
         long double calculation_result = 0.0;
         polishNotation = transformer.s21_string_processing(equation);

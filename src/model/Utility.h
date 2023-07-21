@@ -70,6 +70,10 @@ namespace s21 {
             return str == ")";
         }
 
+        bool s21_is_unary_operation(const std::string& str) {
+            return str == "-" || str == "+";
+        }
+
     private:
 
         std::map<std::string, OperationType> _function = {
@@ -79,10 +83,9 @@ namespace s21 {
                 {"acos", ACOS},
                 {"asin", ASIN},
                 {"atan", ATAN},
-                {"sqrt", SQRT},
                 {"ln",   LN},
                 {"log",  LOG},
-                {"mod",  MOD}
+                {"sqrt", SQRT}
         };
 
         std::map<std::string, OperationType> _operation = {
@@ -91,6 +94,7 @@ namespace s21 {
                 {"*", MULTIPLY},
                 {"/", DIVIDE},
                 {"^", POW},
+                {"mod",  MOD}
         };
     };
 

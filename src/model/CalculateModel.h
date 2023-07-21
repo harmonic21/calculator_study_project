@@ -20,6 +20,8 @@ namespace s21 {
 
         std::string s21_delete_all_members();
 
+        bool s21_validate_equation();
+
         long double s21_calculate(std::string equation);
 
     private:

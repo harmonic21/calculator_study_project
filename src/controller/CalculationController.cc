@@ -20,4 +20,8 @@ namespace s21 {
         return _calculateModel->s21_delete_all_members();
     }
 
+    bool CalculationController::s21_validate_equation() {
+        return  _calculateModel->s21_validate_equation();
+    }
+
 }
