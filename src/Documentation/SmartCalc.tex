@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\title{SmartCalc - is engineering calculator}
+\author{harmonic}
+\begin{document}
+\maketitle
+This application will help you calculate complex expressions based on the priorities of operations.
+SmartCalc supports both unary and binary operations. Parentheses are used to prioritize operations: $ ( -a ) + b  or  - ( a + b ) $.
+SmartCalc performs the calculation after clicking on " = " - symb. 
+In SmartCalc, you can use both integers and floating-point numbers for calculations. A period " . " is used instead of a comma " , ".
+
+\textbf{List of supported binary operations:}
+\begin{enumerate}
+\item Addition: $a + b$;
+\item Subtraction: $a - b$;
+\item Multiplication: $a * b$;
+\item Division: $a / b$;
+\item Power: $a ^ b$;
+\item Modulus: a mod b;
+\end{enumerate}
+
+\textbf{List of supported unary operations:}
+\begin{enumerate}
+\item Unary plus;
+\item Unary minus;
+\end{enumerate}
+
+\textbf{With the help of a SmartCalc, you can plot the function:}
+\begin{enumerate}
+\item cos(x);
+\item sin(x);
+\item tan(x);
+\item acos(x);
+\item asin(x);
+\item atan(x);
+\item sqrt(x);
+\item ln(x);
+\item log(x);
+\end{enumerate}
+
+To plot function graphs, you need to use "kX" and specify the maximum values of x, y and step.
+kX and y are limited to at least numbers from -1000000 to 1000000.
+Verifiable accuracy of the fractional part is at least to 7 decimal places.
+Users must be able to enter up to 255 characters
+\end{document}

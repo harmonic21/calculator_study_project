@@ -11,29 +11,29 @@ CONFIG += c++17
 SOURCES += \
     ./view/Qcustomplot/qcustomplot.cpp \
     ./view/main.cc \
-    ./view/MainWindow.cc \
-    ./controller/CalculationController.cc \
-    ./model/CalculateModel.cc \
-    ./model/EquationMember.cc \
-    ./model/StringTransformer.cc \
-    ./model/Validator.cc \
+    ./view/main_window.cc \
+    ./controller/calculation_controller.cc \
+    ./model/calculate_model.cc \
+    ./model/equation_member.cc \
+    ./model/string_transformer.cc \
+    ./model/validator.cc \
     ./view/graph.cc \
 
 
 HEADERS += \
     ./view/Qcustomplot/qcustomplot.h \
-    ./view/MainWindow.h \
-    ./controller/CalculationController.h \
-    ./model/CalculateModel.h \
-    ./model/EquationMember.h \
-    ./model/StringTransformer.h \
-    ./model/Utility.h \
-    ./model/Validator.h \
+    ./view/main_window.h \
+    ./controller/calculation_controller.h \
+    ./model/calculate_model.h \
+    ./model/equation_member.h \
+    ./model/string_transformer.h \
+    ./model/utility.h \
+    ./model/validator.h \
     ./view/graph.h \
 
 
 FORMS += \
-    ./view/MainWindow.ui \
+    ./view/main_window.ui \
     ./view/graph.ui
 
 TRANSLATIONS += \

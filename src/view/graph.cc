@@ -3,12 +3,12 @@
 
 Graph::Graph(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::Graph)
+    ui_(new Ui::Graph)
 {
-    ui->setupUi(this);
+    ui_->setupUi(this);
 }
 
 Graph::~Graph()
 {
-    delete ui;
+    delete ui_;
 }
