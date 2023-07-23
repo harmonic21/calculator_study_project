@@ -21,6 +21,8 @@ namespace s21 {
 
         bool ValidateEquation();
 
+        long double PrepareAxis(std::string equation, long double x);
+
     private:
         CalculateModel* calculateModel_;
     };

@@ -25,6 +25,10 @@ namespace s21 {
                || member->GetValueType() == Utility::kLog;
     }
 
+    bool EquationMember::IsX(EquationMember* member) {
+        return member->GetValueType() == Utility::kX;
+    }
+
     long double EquationMember::Sum(long double a, long double b) {
         return a + b;
     }

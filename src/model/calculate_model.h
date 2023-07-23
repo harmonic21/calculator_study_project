@@ -24,6 +24,10 @@ namespace s21 {
 
         long double Calculate(std::string equation);
 
+        long double CalculationProcess();
+
+        long double CalculateAxis(std::string equation, long double x);
+
     private:
         std::list<EquationMember *>::iterator OperatorProcess(std::list<EquationMember *>::iterator member);
 

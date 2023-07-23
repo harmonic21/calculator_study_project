@@ -36,15 +36,23 @@ namespace s21 {
         ~Utility() = default;
 
         static bool IsNumber(const std::string& str) {
-            return str.find_first_not_of("1234567890.") == std::string::npos;
+            return str.find_first_not_of("1234567890.-E") == std::string::npos;
+        }
+
+        static bool IsDigit(const std::string& str) {
+            return str.find_first_not_of("1234567890") == std::string::npos;
         }
 
         static bool IsX(const std::string& str) {
-            return str == "x" || str == "kX";
+            return str == "x" || str == "X";
         }
 
         static bool IsDot(const std::string& str) {
             return str == ".";
+        }
+
+        static bool IsExp(const std::string& str) {
+            return str == "E";
         }
 
         static bool IsLeftBracket(const std::string& str) {

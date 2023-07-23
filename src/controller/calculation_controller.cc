@@ -1,5 +1,7 @@
 #include "calculation_controller.h"
 
+#include <utility>
+
 namespace s21 {
 
     long double CalculationController::Calculation(std::string equation_string) {
@@ -20,6 +22,10 @@ namespace s21 {
 
     bool CalculationController::ValidateEquation() {
         return calculateModel_->ValidateEquation();
+    }
+
+    long double CalculationController::PrepareAxis(std::string equation, long double x) {
+        return calculateModel_->CalculateAxis(std::move(equation), x);
     }
 
 }

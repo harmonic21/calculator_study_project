@@ -19,10 +19,12 @@ namespace s21 {
     }
 
     long double CalculateModel::Calculate(std::string equation) {
-        long double calculation_result = 0.0;
         polish_notation_ = transformer_.StringProcessing(equation);
-        auto iter = polish_notation_.begin();
+        return CalculationProcess();
+    }
 
+    long double CalculateModel::CalculationProcess() {
+        auto iter = polish_notation_.begin();
         while (iter != polish_notation_.end()) {
             if (EquationMember::IsSign(*iter) || EquationMember::IsFunction(*iter)) {
                 iter = OperatorProcess(iter);
@@ -30,8 +32,7 @@ namespace s21 {
             }
             iter++;
         }
-        calculation_result = polish_notation_.back()->GetValue();
-        return calculation_result;
+        return polish_notation_.back()->GetValue();
     }
 
     std::list<EquationMember *>::iterator
@@ -75,6 +76,19 @@ namespace s21 {
         auto after_member = ++sign;
         polish_notation_.erase(first_number, sign);
         return after_member;
+    }
+
+    long double CalculateModel::CalculateAxis(std::string equation, long double x) {
+        polish_notation_ = transformer_.StringProcessing(equation);
+        auto iter = polish_notation_.begin();
+        while (iter != polish_notation_.end()) {
+                if (EquationMember::IsX(*iter)) {
+                    (*iter)->SetValue(x);
+                    (*iter)->SetValueType(Utility::kNumber);
+                }
+                iter++;
+            }
+        return CalculationProcess();
     }
 
 }  //  namespace s21

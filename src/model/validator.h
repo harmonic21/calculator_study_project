@@ -28,12 +28,14 @@ namespace s21 {
      private:
         enum DigitMod {
             kDigit,
-            kDot
+            kDot,
+            kExp
         };
 
         std::map<DigitMod, int> stateDigit_ = {
                 {kDigit, 0},
-                {kDot, 0}
+                {kDot, 0},
+                {kExp, 0}
         };
 
         static std::string S21Trim(const std::string &str) noexcept;
@@ -42,7 +44,7 @@ namespace s21 {
 
         void CheckMember(const std::string &current) noexcept;
 
-        void CheckNumber(const std::string &current) noexcept;
+        void CheckConsistencyNumber(const std::string &current) noexcept;
 
         void InitLast();
 
@@ -60,9 +62,13 @@ namespace s21 {
 
         void ValidateAfterDot(const std::string &current);
 
+        void ValidateAfterExp(const std::string &current);
+
         void InsertMember(const std::string &str, const std::string& del);
 
         void CheckStateDigit(const std::string &str);
+
+        void FreshMap();
 
         std::string last_member_;
 

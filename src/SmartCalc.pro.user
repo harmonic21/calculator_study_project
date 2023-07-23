@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 6.0.2, 2023-07-09T21:12:55. -->
+<!-- Written by QtCreator 6.0.2, 2023-07-23T12:33:57. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -236,9 +236,8 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">SmartCalc2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/harmonic/Project/calc2_0/CPP3_SmartCalc_v2.0-1/src/SmartCalc.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/harmonic/Project/calc2_0/CPP3_SmartCalc_v2.0-1/src/SmartCalc.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/harmonic/Project/calc2_0/new/src/SmartCalc.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/harmonic/Project/calc2_0/new/src/SmartCalc.pro</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>

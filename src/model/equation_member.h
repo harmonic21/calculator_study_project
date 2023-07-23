@@ -26,11 +26,17 @@ namespace s21 {
 
         static bool IsFunction(EquationMember *member);
 
+        static bool IsX(EquationMember* member);
+
         Utility::OperationType GetValueType() { return value_type_; }
 
         long double GetValue() const { return value_; }
 
         int GetPriority() const { return priority_; }
+
+        void SetValue(long double value) { value_ = value; }
+
+        void SetValueType(Utility::OperationType type) { value_type_ = type; }
 
         long double (*operation)(long double a, long double b);
 

@@ -654,9 +654,9 @@ QPushButton:hover {
    <widget class="QPushButton" name="pushButton_del_all">
     <property name="geometry">
      <rect>
-      <x>109</x>
+      <x>218</x>
       <y>160</y>
-      <width>218</width>
+      <width>219</width>
       <height>40</height>
      </rect>
     </property>
@@ -1383,9 +1383,9 @@ QPushButton:hover {
    <widget class="QPushButton" name="pushButton_del_symb">
     <property name="geometry">
      <rect>
-      <x>327</x>
+      <x>437</x>
       <y>160</y>
-      <width>218</width>
+      <width>111</width>
       <height>40</height>
      </rect>
     </property>
@@ -1567,6 +1567,40 @@ QPushButton:hover {
      <string>show graph</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_E">
+    <property name="geometry">
+     <rect>
+      <x>109</x>
+      <y>160</y>
+      <width>109</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	background: rgb(146, 103, 255);
+	font: 14pt &quot;Arial&quot;;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+	color: rgb(255, 255, 255);
+	border: 2px solid rgb(96, 96, 96) ;
+} 
+
+
+QPushButton:pressed {
+	background: rgb(202, 175, 255);
+}
+
+QPushButton:hover {
+	border: 2px solid rgb(41, 255, 248);
+}</string>
+    </property>
+    <property name="text">
+     <string>E</string>
+    </property>
+   </widget>
    <zorder>label_expression</zorder>
    <zorder>pushButton_sum</zorder>
    <zorder>pushButton_del_all</zorder>
@@ -1602,6 +1636,7 @@ QPushButton:hover {
    <zorder>pushButton_dot</zorder>
    <zorder>pushButton_9</zorder>
    <zorder>graph</zorder>
+   <zorder>pushButton_E</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

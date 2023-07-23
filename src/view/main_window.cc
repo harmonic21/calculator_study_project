@@ -1,5 +1,5 @@
 #include "main_window.h"
-#include "ui_MainWindow.h"
+#include "ui_main_window.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     ui_(new Ui::MainWindow), controller_(new s21::CalculationController(new s21::CalculateModel())) {
@@ -33,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     connect(ui_->pushButton_sqrt, SIGNAL(clicked()), this, SLOT(InputProcess()));
 
     connect(ui_->pushButton_X, SIGNAL(clicked()), this, SLOT(InputProcess()));
+    connect(ui_->pushButton_E, SIGNAL(clicked()), this, SLOT(InputProcess()));
 
     connect(ui_->pushButton_dot, SIGNAL(clicked()), this, SLOT(InputProcess()));
 
@@ -73,8 +74,12 @@ void MainWindow::EqualProcess() {
     std::string equation = output_string_.toLocal8Bit().data();
 
     if (controller_->ValidateEquation()) {
-        long double calculation_result = controller_->Calculation(equation);
-        ui_->label_result->setText(QString::number(calculation_result, 'g', 10));
+        if (equation.find("X") != std::string::npos) {
+            graph_.PlotGraph(controller_, equation);
+        } else {
+           long double calculation_result = controller_->Calculation(equation);
+           ui_->label_result->setText(QString::number(calculation_result, 'g', 10));
+        }
     } else {
         ui_->label_result->setText("Illegal format");
     }
@@ -84,7 +89,11 @@ void MainWindow::EqualProcess() {
 void MainWindow::OpenGraph() {
      QPushButton *button = (QPushButton *)sender();
     if (button->isChecked()) {
-        graph_.setGeometry(this->geometry().x() + this->geometry().width(), this->geometry().y(), this->geometry().width(), this->geometry().height());
+        int X = this->geometry().x();
+        int Y = this->geometry().y();
+        int width = this->geometry().width();
+        int height = this->geometry().height();
+        graph_.setGeometry(X + width, Y, width, height);
         graph_.show();
     } else {
         graph_.close();
@@ -96,34 +105,4 @@ void MainWindow::closeEvent(QCloseEvent* e) {
     graph_.close();
 }
 
-
-
-
-//void CalculationView::PlotGraph(char* result) {
-//    double ymax = ui->doubleSpinBox_ymax->value();
-//    double xmax = ui->doubleSpinBox_xmax->value();
-//    double step = ui->doubleSpinBox_x->value();
-//    if (ymax == 0) {
-//        ymax = 20.0;
-//    }
-//    if (xmax == 0) {
-//        xmax = 20.0;
-//    }
-//    if (step == 0) {
-//        step = 0.01;
-//    }
-//    for (double kX = -xmax; kX <= xmax; kX += step) {
-//        x.push_back(kX);
-//        y.push_back((double)s21_set_graph(result, kX));
-//    }
-//    ui->widget->addGraph();
-//    ui->widget->graph(0)->setData(x, y);
-//    ui->widget->graph(0)->setLineStyle(QCPGraph::lsNone);
-//    ui->widget->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 1));
-//    ui->widget->xAxis->setRange(-xmax, xmax);
-//    ui->widget->yAxis->setRange(-ymax, ymax);
-//    ui->widget->replot();
-//    x.clear();
-//    y.clear();
-//}
 
