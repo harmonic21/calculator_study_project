@@ -21,12 +21,18 @@ public:
 
     void PlotGraph(s21::CalculationController* controller, std::string equation);
 
+    void ScaleGraph();
+
+    void ClearGraph();
+
 private:
     Ui::Graph *ui_;
 
     QVector<double> x_;
 
     QVector<double> y_;
+
+    void PaintGraph(double x_max, double y_max);
 
 };
 

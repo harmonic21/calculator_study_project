@@ -33,6 +33,7 @@ namespace s21 {
         int count_x = 0;
         int count_number = 0;
         int sum_bracket = 0;
+        int count_exp = 0;
 
         for (char i: equation) {
             std::string member;
@@ -48,6 +49,9 @@ namespace s21 {
             if (s21::Utility::IsX(member)) {
                 count_x++;
             }
+            if (s21::Utility::IsExp(member)) {
+                count_exp++;
+            }
             member.clear();
         }
 
@@ -55,6 +59,9 @@ namespace s21 {
             result = false;
         }
         if (equation.size() > 400) {
+            result = false;
+        }
+        if (count_exp == 1 && equation.size() == 1) {
             result = false;
         }
         FreshMap();

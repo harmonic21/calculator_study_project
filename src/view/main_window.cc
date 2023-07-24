@@ -4,6 +4,7 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     ui_(new Ui::MainWindow), controller_(new s21::CalculationController(new s21::CalculateModel())) {
     ui_->setupUi(this);
+    setWindowTitle("Calculator (╮°-°)╮┳━━┳ ");
     connect(ui_->pushButton_0, SIGNAL(clicked()), this, SLOT(InputProcess()));
     connect(ui_->pushButton_1, SIGNAL(clicked()), this, SLOT(InputProcess()));
     connect(ui_->pushButton_2, SIGNAL(clicked()), this, SLOT(InputProcess()));
@@ -44,11 +45,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     connect(ui_->pushButton_del_all, SIGNAL(clicked()), this, SLOT(DelAllEquationProcess()));
 
     connect(ui_->pushButton_equal, SIGNAL(clicked()), this, SLOT(EqualProcess()));
-    connect(ui_->graph, SIGNAL(clicked()), this, SLOT(OpenGraph()));
+    connect(ui_->graph, SIGNAL(clicked()), this, SLOT(GraphProcess()));
 }
 
 MainWindow::~MainWindow() {
     delete ui_;
+}
+
+void MainWindow::closeEvent(QCloseEvent* e) {
+    QWidget::closeEvent(e);
+    graph_.close();
 }
 
 void MainWindow::InputProcess() {
@@ -67,7 +73,8 @@ void MainWindow::DelOneSymbolProcess() {
 
 void MainWindow::DelAllEquationProcess() {
     output_string_ = QString::fromStdString(controller_->DeleteAll());
-     ui_->label_expression->setText(output_string_);
+    ui_->label_expression->setText(output_string_);
+    graph_.ClearGraph();
 }
 
 void MainWindow::EqualProcess() {
@@ -75,6 +82,7 @@ void MainWindow::EqualProcess() {
 
     if (controller_->ValidateEquation()) {
         if (equation.find("X") != std::string::npos) {
+            OpenGraph();
             graph_.PlotGraph(controller_, equation);
         } else {
            long double calculation_result = controller_->Calculation(equation);
@@ -83,26 +91,29 @@ void MainWindow::EqualProcess() {
     } else {
         ui_->label_result->setText("Illegal format");
     }
+    ui_->label_expression->clear();
     output_string_ = QString::fromStdString(controller_->DeleteAll());
 }
 
-void MainWindow::OpenGraph() {
+void MainWindow::GraphProcess() {
      QPushButton *button = (QPushButton *)sender();
     if (button->isChecked()) {
-        int X = this->geometry().x();
-        int Y = this->geometry().y();
-        int width = this->geometry().width();
-        int height = this->geometry().height();
-        graph_.setGeometry(X + width, Y, width, height);
-        graph_.show();
+       OpenGraph();
     } else {
         graph_.close();
     }
 }
 
-void MainWindow::closeEvent(QCloseEvent* e) {
-    QWidget::closeEvent(e);
-    graph_.close();
+void MainWindow::OpenGraph() {
+    int X = this->geometry().x();
+    int Y = this->geometry().y();
+    int width = this->geometry().width();
+    int height = this->geometry().height();
+    graph_.setGeometry(X + width, Y, width, height);
+    graph_.ScaleGraph();
+    graph_.show();
 }
+
+
 
 

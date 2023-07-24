@@ -17,9 +17,9 @@ class MainWindow : public QMainWindow {
 public:
     explicit MainWindow(QWidget *parent = nullptr);
 
-    virtual void closeEvent(QCloseEvent *e);
-
     ~MainWindow();
+
+    virtual void closeEvent(QCloseEvent *e);
 
 private:
     Ui::MainWindow *ui_;
@@ -36,10 +36,10 @@ private slots:
 
     void EqualProcess();
 
+    void GraphProcess();
+
     void OpenGraph();
 
-
-    // void PlotGraph(char* result);
 };
 
 
