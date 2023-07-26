@@ -1,48 +1,53 @@
-CC=gcc
-FLAGS=-g -Wall -Wextra -Werror -std=c11 -pedantic
-CFLAGS=-c $(FLAGS)
-TEST_FLAGS=-lcheck -lgcov -lm -lrt -lpthread -lsubunit
+CC=g++
+FLAGS=-Wall -Wextra -Werror -g --std=c++17 -pedantic
+GCOV=-coverage
+UNAME := $(shell uname)
+TEST_FLAGS=-lgtest -lpthread
 
 #SRCS
-SRC_CFILES=CalculationController.cc CalculateModel.cc EquationMember.cc StringTransformer.cc Validator.cc
-SRC_TEST=s21_test.c
+SRC_CFILES=calculation_controller.cc calculate_model.cc equation_member.cc string_transformer.cc validator.cc
+SRC_TEST=s21_test.cc
 
 SOURCES=./SmartCalc/Qcustomplot/qcustomplot.cpp \
         ./view/main.cc \
-        ./view/MainWindow.cc \
+        ./view/main_window.cc \
+        ./view/graph.cc \
         ./controller/calculation_controller.cc \
-        ./model/CalculateModel.cc \
-        ./model/EquationMember.cc \
-        ./model/StringTransformer.cc \
-        ./model/Validator.cc \
+        ./model/calculate_model.cc \
+        ./model/equation_member.cc \
+        ./model/string_transformer.cc \
+        ./model/validator.cc \
 
 HEADERS=./SmartCalc/Qcustomplot/qcustomplot.h \
-        ./view/MainWindow.h \
+        ./view/main_window.h \
+        ./view/graph.h \
         ./controller/calculation_controller.h \
-        ./model/CalculateModel.h \
-        ./model/EquationMember.h \
-        ./model/StringTransformer.h \
-        ./model/Utility.h \
-        ./model/Validator.h \
+        ./model/calculate_model.h \
+        ./model/equation_member.h \
+        ./model/string_transformer.h \
+        ./model/utility.h \
+        ./model/validator.h \
 
 
 #OBJECTS
-OBJ=$(notdir $(SRC_CFILES:.c=.o))
-OBJ_TEST=$(notdir $(SRC_TEST:.c=.o))
+OBJ=$(notdir $(SRC_CFILES:.cc=.o))
+OBJ_TEST=$(notdir $(SRC_TEST:.cc=.o))
 
 #DIRECTORY
 OBJ_DIR=objects
 SRC_DIR=./SmartCalc ./model ./view ./controller
-TEST_DIR=s21_test
-BD=../build/
+TEST_DIR=test
+BD=./build/
 
 #INCLUDES
-INCLUDE=Validator.h \
-        Utility.h \
-        StringTransformer.h \
-        CalculateModel.h \
-        CalculationController.h \
-        
+INCLUDE=validator.h \
+        utility.h \
+        string_transformer.h \
+        equation_member.h \
+        calculate_model.h \
+        calculation_controller.h \
+        graph.h \
+        main_window.h \
 
 vpath %.cc $(SRC_DIR) $(TEST_DIR)
 vpath %.o $(OBJ_DIR)
@@ -57,19 +62,16 @@ build: $(BD)SmartCalc.pro
 	make -C $(BD)
 
 ./$(BD)SmartCalc.pro:
-	@mkdir -p ../build/  2>/dev/null
+	@mkdir -p ./build/  2>/dev/null
 	cp SmartCalc.pro $(BD)
 
-./$(BD)%.o: */*/%.cpp
-	g++ -C $< -o $@
-
 install: build
-	@mkdir -p ../Applications/  2>/dev/null
-	cp -rf $(BD)SmartCalc ../Applications/
+	@mkdir -p ./Applications/  2>/dev/null
+	cp -rf $(BD)SmartCalc ./Applications/
 	make clean
 
 uninstall:
-	rm -rf ../Applications
+	rm -rf ./Applications
 
 dvi:
 	latex ./Documentation/SmartCalc.tex
@@ -77,7 +79,7 @@ dvi:
 	rm -rf ./SmartCalc.aux ./SmartCalc.log
 
 dist: install dvi
-	tar -cvf SmartCalc.tar Documentation/SmartCalc.dvi ../Applications/SmartCalc
+	tar -cvf SmartCalc.tar Documentation/SmartCalc.dvi ./Applications/SmartCalc
 	gzip SmartCalc.tar
 
 %.o: %.cc $(INCLUDE)
@@ -98,8 +100,8 @@ valgrind: tests
 	valgrind --leak-check=full ./test
 
 cppcheck:
-	cppcheck --enable=all --suppress=missingIncludeSystem ./SmartCalc/*.c ./$(TEST_DIR)/*.c ./SmartCalc/s21_collection/*.c \
-	./SmartCalc/s21_polish_notation/*.c ./SmartCalc/s21_calculations/*.c
+	cppcheck --enable=all --suppress=missingIncludeSystem ./$(TEST_DIR)/*.cc ./view/* \
+	./model/* ./controller/*
 
 clean:
 	rm -rf $(OBJ_DIR) report test gcov_report.info ./$(BD)* ./$(BD).qmake.stash ./$(BD).qm

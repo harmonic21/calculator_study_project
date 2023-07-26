@@ -23,6 +23,7 @@ namespace s21 {
         if (!stack_operation_.empty()) {
             FlushStack();
         }
+        mathematical_expression.erase(mathematical_expression.cbegin(), mathematical_expression.cend());
         return polish_notation_;
     }
 
@@ -37,7 +38,7 @@ namespace s21 {
     }
 
     void StringTransformer::CheckNumber(std::list<EquationMember *>& list, std::string& str) {
-        if (s21::Utility::IsNumber(str)) {
+        if (s21::Utility::IsNumber(str) && !s21::Utility::IsUnaryOperation(str)) {
             std::string::size_type sz;
             long double value = s21::Utility::IsDot(str) ? 0 : std::stold(str, &sz);
             list.push_back(new EquationMember(value, Utility::kNumber));
@@ -105,6 +106,7 @@ namespace s21 {
                 stack_operation_.push_back(new_member);
             } else if (new_member->GetValueType() == Utility::kRightBracket) {
                 FlushUntilParentheses();
+                delete new_member;
             } else if (old_member->GetPriority() >= new_member->GetPriority() &&
                        IsLeftAssociative(new_member)) {
                 bool flag = false;

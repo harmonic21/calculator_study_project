@@ -172,4 +172,10 @@ namespace s21 {
         }
     }
 
+    void EquationMember::SelectionProcess() noexcept {
+        PrioritySelection();
+        FunctionSelection();
+        OperationSelection();
+    }
+
 }  //  namespace s21

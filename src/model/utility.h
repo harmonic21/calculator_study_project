@@ -7,7 +7,7 @@
 namespace s21 {
 
     class Utility {
-     public:
+    public:
         enum OperationType {
             kNumber,
             kX,
@@ -33,37 +33,41 @@ namespace s21 {
         };
 
         Utility() = default;
-        ~Utility() = default;
 
-        static bool IsNumber(const std::string& str) {
+        ~Utility() {
+            function_.erase(function_.cbegin(), function_.cend());
+            operation_.erase(operation_.cbegin(), operation_.cend());
+        }
+
+        static bool IsNumber(const std::string &str) {
             return str.find_first_not_of("1234567890.-E") == std::string::npos;
         }
 
-        static bool IsDigit(const std::string& str) {
+        static bool IsDigit(const std::string &str) {
             return str.find_first_not_of("1234567890") == std::string::npos;
         }
 
-        static bool IsX(const std::string& str) {
+        static bool IsX(const std::string &str) {
             return str == "x" || str == "X";
         }
 
-        static bool IsDot(const std::string& str) {
+        static bool IsDot(const std::string &str) {
             return str == ".";
         }
 
-        static bool IsExp(const std::string& str) {
+        static bool IsExp(const std::string &str) {
             return str == "E";
         }
 
-        static bool IsLeftBracket(const std::string& str) {
+        static bool IsLeftBracket(const std::string &str) {
             return str == "(";
         }
 
-        static bool IsRightBracket(const std::string& str) {
+        static bool IsRightBracket(const std::string &str) {
             return str == ")";
         }
 
-        static bool IsUnaryOperation(const std::string& str) {
+        static bool IsUnaryOperation(const std::string &str) {
             return str == "-" || str == "+";
         }
 
@@ -83,7 +87,7 @@ namespace s21 {
             return operation_.count(str) > 0;
         }
 
-     private:
+    private:
         std::map<std::string, OperationType> function_ = {
                 {"cos",  kCos},
                 {"sin",  kSin},

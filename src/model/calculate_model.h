@@ -8,10 +8,12 @@ namespace s21 {
 
     class CalculateModel {
     public:
-        CalculateModel() = default;
+        CalculateModel() : validator_(new Validator), transformer_(new StringTransformer) {}
 
         ~CalculateModel() {
             polish_notation_.clear();
+            delete validator_;
+            delete transformer_;
         }
 
         std::string Add(const std::string &str);
@@ -34,9 +36,9 @@ namespace s21 {
         std::list<EquationMember *>::iterator DeleteAfterCalculate(std::list<EquationMember *>::iterator first_number,
                                                                    std::list<EquationMember *>::iterator sign);
 
-        Validator validator_;
+        Validator* validator_;
 
-        StringTransformer transformer_;
+        StringTransformer* transformer_;
 
         std::list<EquationMember *> polish_notation_;
     };

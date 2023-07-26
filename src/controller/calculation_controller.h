@@ -9,7 +9,33 @@ namespace s21 {
     public:
         explicit CalculationController(CalculateModel* model) : calculateModel_(model) {}
 
-        ~CalculationController() = default;
+        CalculationController(const CalculationController& other) {
+            calculateModel_ = other.calculateModel_;
+        }
+
+        CalculationController(CalculationController&& other)  noexcept : calculateModel_(nullptr) {
+            *this = std::move(other);
+        }
+
+        CalculationController& operator=(const CalculationController& c) {
+            if (this != &c) {
+                delete calculateModel_;
+                calculateModel_ = c.calculateModel_;
+            }
+            return *this;
+        }
+
+        CalculationController& operator=(CalculationController&& c) noexcept {
+            if (this != &c) {
+                delete calculateModel_;
+                calculateModel_ = c.calculateModel_;
+                delete c.calculateModel_;
+                delete &c;
+            }
+            return *this;
+        }
+
+        ~CalculationController() { delete calculateModel_; }
 
         long double Calculation(std::string equation_string);
 

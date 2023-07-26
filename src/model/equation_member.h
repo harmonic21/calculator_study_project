@@ -10,17 +10,33 @@ namespace s21 {
 
     class EquationMember {
      public:
-        EquationMember() = delete;
+        EquationMember() : operation(nullptr), function(nullptr), value_(0), priority_(-2), value_type_() {}
 
         EquationMember(long double value, Utility::OperationType type) :  operation(nullptr),
                                                                           function(nullptr),
                                                                           value_(value),
                                                                           priority_(-2),
                                                                           value_type_(type) {
-            PrioritySelection();
-            FunctionSelection();
-            OperationSelection();
+           SelectionProcess();
         }
+
+        EquationMember(EquationMember&& other) noexcept : EquationMember() {
+            *this = std::move(other);
+        }
+
+        EquationMember& operator=(EquationMember&& c) noexcept {
+            if (this != &c) {
+                operation = c.operation;
+                function = c.function;
+                value_ = c.value_;
+                priority_ = c.priority_;
+                value_type_ = c.value_type_;
+                delete &c;
+            }
+            return *this;
+        }
+
+        ~EquationMember() { }
 
         static bool IsSign(EquationMember *member);
 
@@ -78,6 +94,8 @@ namespace s21 {
         void FunctionSelection() noexcept;
 
         void OperationSelection() noexcept;
+
+        void SelectionProcess() noexcept;
 
         long double value_;
 

@@ -3,23 +3,23 @@
 namespace s21 {
 
     std::string CalculateModel::Add(const std::string& str) {
-        return validator_.AddMember(str);
+        return validator_->AddMember(str);
     }
 
     std::string CalculateModel::DeleteOneMember() {
-        return validator_.RemoveOneMember();
+        return validator_->RemoveOneMember();
     }
 
     std::string CalculateModel::DeleteAllMembers() {
-        return validator_.RemoveAll();
+        return validator_->RemoveAll();
     }
 
     bool CalculateModel::ValidateEquation() {
-        return validator_.ValidateResultString();
+        return validator_->ValidateResultString();
     }
 
     long double CalculateModel::Calculate(std::string equation) {
-        polish_notation_ = transformer_.StringProcessing(equation);
+        polish_notation_ = transformer_->StringProcessing(equation);
         return CalculationProcess();
     }
 
@@ -45,7 +45,7 @@ namespace s21 {
             EquationMember *sign = *member;
             EquationMember *first = *(--member);
             if (sign->GetValueType() == Utility::kUnaryMinus ||
-                    sign->GetValueType() == Utility::kUnaryPlus) {
+                sign->GetValueType() == Utility::kUnaryPlus) {
                 result = sign->operation(0, first->GetValue());
             } else {
                 EquationMember *second = *(--member);
@@ -79,7 +79,7 @@ namespace s21 {
     }
 
     long double CalculateModel::CalculateAxis(std::string equation, long double x) {
-        polish_notation_ = transformer_.StringProcessing(equation);
+        polish_notation_ = transformer_->StringProcessing(equation);
         auto iter = polish_notation_.begin();
         while (iter != polish_notation_.end()) {
                 if (EquationMember::IsX(*iter)) {
