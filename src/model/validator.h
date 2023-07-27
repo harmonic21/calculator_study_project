@@ -8,76 +8,67 @@
 
 namespace s21 {
 
-    class Validator {
-     public:
-        Validator() = default;
+class Validator {
+ public:
+  Validator() = default;
 
-        ~Validator() {
-            last_member_.clear();
-            result_equation_.clear();
-        }
+  ~Validator() {
+    last_member_.clear();
+    result_equation_.clear();
+  }
 
-        std::string AddMember(const std::string &str);
+  std::string AddMember(const std::string &str);
 
-        std::string RemoveOneMember();
+  std::string RemoveOneMember();
 
-        std::string RemoveAll();
+  std::string RemoveAll();
 
-        bool ValidateResultString() noexcept;
+  bool ValidateResultString() noexcept;
 
-     private:
-        enum DigitMod {
-            kDigit,
-            kDot,
-            kExp
-        };
+ private:
+  enum DigitMod { kDigit, kDot, kExp };
 
-        std::map<DigitMod, int> stateDigit_ = {
-                {kDigit, 0},
-                {kDot, 0},
-                {kExp, 0}
-        };
+  std::map<DigitMod, int> stateDigit_ = {{kDigit, 0}, {kDot, 0}, {kExp, 0}};
 
-        static std::string S21Trim(const std::string &str) noexcept;
+  static std::string S21Trim(const std::string &str) noexcept;
 
-        std::string ResultEquationToString() noexcept;
+  std::string ResultEquationToString() noexcept;
 
-        void CheckMember(const std::string &current) noexcept;
+  void CheckMember(const std::string &current) noexcept;
 
-        void CheckConsistencyNumber(const std::string &current) noexcept;
+  void CheckConsistencyNumber(const std::string &current) noexcept;
 
-        void InitLast();
+  void InitLast();
 
-        void ValidateFirst(const std::string &current);
+  void ValidateFirst(const std::string &current);
 
-        void ValidateAfterLeftBracket(const std::string &current);
+  void ValidateAfterLeftBracket(const std::string &current);
 
-        void ValidateAfterRightBracket(const std::string &current);
+  void ValidateAfterRightBracket(const std::string &current);
 
-        void ValidateAfterNumber(const std::string &current);
+  void ValidateAfterNumber(const std::string &current);
 
-        void ValidateAfterX(const std::string &current);
+  void ValidateAfterX(const std::string &current);
 
-        void ValidateAfterOperator(const std::string &current);
+  void ValidateAfterOperator(const std::string &current);
 
-        void ValidateAfterDot(const std::string &current);
+  void ValidateAfterDot(const std::string &current);
 
-        void ValidateAfterExp(const std::string &current);
+  void ValidateAfterExp(const std::string &current);
 
-        void InsertMember(const std::string &str, const std::string& del);
+  void InsertMember(const std::string &str, const std::string &del);
 
-        void CheckStateDigit(const std::string &str);
+  void CheckStateDigit(const std::string &str);
 
-        void FreshMap();
+  void FreshMap();
 
-        std::string last_member_;
+  std::string last_member_;
 
-        std::vector<std::string> result_equation_;
+  std::vector<std::string> result_equation_;
 
-        Utility utility_;
-    };
+  Utility utility_;
+};
 
 }  //  namespace s21
 
-
-#endif //CPP3_SMARTCALC_V2_0_1_VALIDATOR_H
+#endif  // CPP3_SMARTCALC_V2_0_1_VALIDATOR_H

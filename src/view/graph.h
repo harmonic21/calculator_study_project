@@ -3,37 +3,35 @@
 
 #include <QWidget>
 
+#include "../controller/calculation_controller.h"
 #include "Qcustomplot/qcustomplot.h"
 
-#include "../controller/calculation_controller.h"
-
 namespace Ui {
-    class Graph;
+class Graph;
 }
 
 class Graph : public QWidget {
-    Q_OBJECT
+  Q_OBJECT
 
-public:
-    explicit Graph(QWidget *parent = nullptr);
+ public:
+  explicit Graph(QWidget *parent = nullptr);
 
-    ~Graph();
+  ~Graph();
 
-    void PlotGraph(s21::CalculationController* controller, std::string equation);
+  void PlotGraph(s21::CalculationController *controller, std::string equation);
 
-    void ScaleGraph();
+  void ScaleGraph();
 
-    void ClearGraph();
+  void ClearGraph();
 
-private:
-    Ui::Graph *ui_;
+ private:
+  Ui::Graph *ui_;
 
-    QVector<double> x_;
+  QVector<double> x_;
 
-    QVector<double> y_;
+  QVector<double> y_;
 
-    void PaintGraph(double x_max, double y_max);
-
+  void PaintGraph(double x_max, double y_max);
 };
 
-#endif // GRAPH_H
+#endif  // GRAPH_H

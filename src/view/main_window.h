@@ -8,39 +8,39 @@
 #include "graph.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui {
+class MainWindow;
+}
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow {
-    Q_OBJECT
+  Q_OBJECT
 
-public:
-    explicit MainWindow(QWidget *parent = nullptr);
+ public:
+  explicit MainWindow(QWidget *parent = nullptr);
 
-    ~MainWindow();
+  ~MainWindow();
 
-    virtual void closeEvent(QCloseEvent *e);
+  virtual void closeEvent(QCloseEvent *e);
 
-private:
-    Ui::MainWindow *ui_;
-    Graph graph_;
-    s21::CalculationController *controller_;
-    QString output_string_;
+ private:
+  Ui::MainWindow *ui_;
+  Graph graph_;
+  s21::CalculationController *controller_;
+  QString output_string_;
 
-private slots:
-    void InputProcess();
+ private slots:
+  void InputProcess();
 
-    void DelOneSymbolProcess();
+  void DelOneSymbolProcess();
 
-    void DelAllEquationProcess();
+  void DelAllEquationProcess();
 
-    void EqualProcess();
+  void EqualProcess();
 
-    void GraphProcess();
+  void GraphProcess();
 
-    void OpenGraph();
-
+  void OpenGraph();
 };
-
 
 #endif  //  SRC_SMARTCALC_CALCULATION_VIEW_H_

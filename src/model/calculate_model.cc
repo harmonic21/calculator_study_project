@@ -2,93 +2,108 @@
 
 namespace s21 {
 
-    std::string CalculateModel::Add(const std::string& str) {
-        return validator_->AddMember(str);
-    }
+std::string CalculateModel::Add(const std::string &str) {
+  return validator_->AddMember(str);
+}
 
-    std::string CalculateModel::DeleteOneMember() {
-        return validator_->RemoveOneMember();
-    }
+std::string CalculateModel::DeleteOneMember() {
+  return validator_->RemoveOneMember();
+}
 
-    std::string CalculateModel::DeleteAllMembers() {
-        return validator_->RemoveAll();
-    }
+std::string CalculateModel::DeleteAllMembers() {
+  return validator_->RemoveAll();
+}
 
-    bool CalculateModel::ValidateEquation() {
-        return validator_->ValidateResultString();
-    }
+bool CalculateModel::ValidateEquation() {
+  return validator_->ValidateResultString();
+}
 
-    long double CalculateModel::Calculate(std::string equation) {
-        polish_notation_ = transformer_->StringProcessing(equation);
-        return CalculationProcess();
-    }
+long double CalculateModel::Calculate(std::string equation) {
+  polish_notation_ = transformer_->StringProcessing(equation);
+  return CalculationProcess();
+}
 
-    long double CalculateModel::CalculationProcess() {
-        auto iter = polish_notation_.begin();
-        while (iter != polish_notation_.end()) {
-            if (EquationMember::IsSign(*iter) || EquationMember::IsFunction(*iter)) {
-                iter = OperatorProcess(iter);
-                continue;
-            }
-            iter++;
-        }
-        return polish_notation_.back()->GetValue();
+long double CalculateModel::CalculationProcess() {
+  auto iter = polish_notation_.begin();
+  while (iter != polish_notation_.end()) {
+    if (EquationMember::IsSign(*iter) || EquationMember::IsFunction(*iter)) {
+      iter = OperatorProcess(iter);
+      continue;
     }
+    iter++;
+  }
+  long double result = polish_notation_.back()->GetValue();
+  delete polish_notation_.back();
+  polish_notation_.erase(polish_notation_.cbegin(), polish_notation_.cend());
+  return result;
+}
 
-    std::list<EquationMember *>::iterator
-    CalculateModel::OperatorProcess(std::list<EquationMember *>::iterator member) {
-        long double result = 0.0;
-        bool res_modification = false;
-        auto iter = member;
+std::list<EquationMember *>::iterator CalculateModel::OperatorProcess(
+    std::list<EquationMember *>::iterator member) {
+  long double result = 0.0;
+  bool res_modification = false;
+  auto iter = member;
 
-        if (EquationMember::IsSign(*member)) {
-            EquationMember *sign = *member;
-            EquationMember *first = *(--member);
-            if (sign->GetValueType() == Utility::kUnaryMinus ||
-                sign->GetValueType() == Utility::kUnaryPlus) {
-                result = sign->operation(0, first->GetValue());
-            } else {
-                EquationMember *second = *(--member);
-                if (first->GetValueType() == Utility::kNumber && second->GetValueType() == Utility::kNumber) {
-                    result = sign->operation(second->GetValue(), first->GetValue());
-                }
-            }
-            iter = DeleteAfterCalculate(member, iter);
-            res_modification = true;
-        } else if (EquationMember::IsFunction(*member)) {
-            EquationMember *function = *member;
-            EquationMember *number = *(--member);
-            if (number->GetValueType() == Utility::kNumber) {
-                result = function->function(number->GetValue());
-                iter = DeleteAfterCalculate(member, iter);
-                res_modification = true;
-            }
-        }
-        if (res_modification) {
-            iter = polish_notation_.emplace(iter, new EquationMember(result, Utility::kNumber));
-        }
-        return iter;
+  if (EquationMember::IsSign(*member)) {
+    EquationMember *sign = *member;
+    EquationMember *first = *(--member);
+    if (sign->GetValueType() == Utility::kUnaryMinus ||
+        sign->GetValueType() == Utility::kUnaryPlus) {
+      result = sign->operation(0, first->GetValue());
+    } else {
+      EquationMember *second = *(--member);
+      if (first->GetValueType() == Utility::kNumber &&
+          second->GetValueType() == Utility::kNumber) {
+        result = sign->operation(second->GetValue(), first->GetValue());
+      }
     }
-
-    std::list<EquationMember *>::iterator
-    CalculateModel::DeleteAfterCalculate(std::list<EquationMember *>::iterator first_number,
-                                         std::list<EquationMember *>::iterator sign) {
-        auto after_member = ++sign;
-        polish_notation_.erase(first_number, sign);
-        return after_member;
+    iter = DeleteAfterCalculate(member, iter);
+    res_modification = true;
+  } else if (EquationMember::IsFunction(*member)) {
+    EquationMember *function = *member;
+    EquationMember *number = *(--member);
+    if (number->GetValueType() == Utility::kNumber) {
+      result = function->function(number->GetValue());
+      iter = DeleteAfterCalculate(member, iter);
+      res_modification = true;
     }
+  }
+  if (res_modification) {
+    iter = polish_notation_.emplace(
+        iter, new EquationMember(result, Utility::kNumber));
+  }
+  return iter;
+}
 
-    long double CalculateModel::CalculateAxis(std::string equation, long double x) {
-        polish_notation_ = transformer_->StringProcessing(equation);
-        auto iter = polish_notation_.begin();
-        while (iter != polish_notation_.end()) {
-                if (EquationMember::IsX(*iter)) {
-                    (*iter)->SetValue(x);
-                    (*iter)->SetValueType(Utility::kNumber);
-                }
-                iter++;
-            }
-        return CalculationProcess();
+std::list<EquationMember *>::iterator CalculateModel::DeleteAfterCalculate(
+    std::list<EquationMember *>::iterator first_number,
+    std::list<EquationMember *>::iterator sign) {
+  auto after_member = ++sign;
+  DeleteProcess(first_number, after_member);
+  polish_notation_.erase(first_number, sign);
+  return after_member;
+}
+
+void CalculateModel::DeleteProcess(
+    std::list<EquationMember *>::iterator first_number,
+    std::list<EquationMember *>::iterator after_member) {
+  for (auto i = first_number; i != after_member; i++) {
+    EquationMember *temp = *i;
+    delete temp;
+  }
+}
+
+long double CalculateModel::CalculateAxis(std::string equation, long double x) {
+  polish_notation_ = transformer_->StringProcessing(equation);
+  auto iter = polish_notation_.begin();
+  while (iter != polish_notation_.end()) {
+    if (EquationMember::IsX(*iter)) {
+      (*iter)->SetValue(x);
+      (*iter)->SetValueType(Utility::kNumber);
     }
+    iter++;
+  }
+  return CalculationProcess();
+}
 
 }  //  namespace s21

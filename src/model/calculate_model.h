@@ -6,44 +6,49 @@
 
 namespace s21 {
 
-    class CalculateModel {
-    public:
-        CalculateModel() : validator_(new Validator), transformer_(new StringTransformer) {}
+class CalculateModel {
+ public:
+  CalculateModel()
+      : validator_(new Validator), transformer_(new StringTransformer) {}
 
-        ~CalculateModel() {
-            polish_notation_.clear();
-            delete validator_;
-            delete transformer_;
-        }
+  ~CalculateModel() {
+    polish_notation_.clear();
+    delete validator_;
+    delete transformer_;
+  }
 
-        std::string Add(const std::string &str);
+  std::string Add(const std::string &str);
 
-        std::string DeleteOneMember();
+  std::string DeleteOneMember();
 
-        std::string DeleteAllMembers();
+  std::string DeleteAllMembers();
 
-        bool ValidateEquation();
+  bool ValidateEquation();
 
-        long double Calculate(std::string equation);
+  long double Calculate(std::string equation);
 
-        long double CalculationProcess();
+  long double CalculationProcess();
 
-        long double CalculateAxis(std::string equation, long double x);
+  long double CalculateAxis(std::string equation, long double x);
 
-    private:
-        std::list<EquationMember *>::iterator OperatorProcess(std::list<EquationMember *>::iterator member);
+ private:
+  std::list<EquationMember *>::iterator OperatorProcess(
+      std::list<EquationMember *>::iterator member);
 
-        std::list<EquationMember *>::iterator DeleteAfterCalculate(std::list<EquationMember *>::iterator first_number,
-                                                                   std::list<EquationMember *>::iterator sign);
+  std::list<EquationMember *>::iterator DeleteAfterCalculate(
+      std::list<EquationMember *>::iterator first_number,
+      std::list<EquationMember *>::iterator sign);
 
-        Validator* validator_;
+  static void DeleteProcess(std::list<EquationMember *>::iterator first_number,
+                            std::list<EquationMember *>::iterator sign);
 
-        StringTransformer* transformer_;
+  Validator *validator_;
 
-        std::list<EquationMember *> polish_notation_;
-    };
+  StringTransformer *transformer_;
 
-} //  namespace s21
+  std::list<EquationMember *> polish_notation_;
+};
 
+}  //  namespace s21
 
-#endif //CPP3_SMARTCALC_V2_0_1_CALCULATE_MODEL_H
+#endif  // CPP3_SMARTCALC_V2_0_1_CALCULATE_MODEL_H
