@@ -8,7 +8,6 @@ TEST(CalculateModel, s21_calc_one) {
   long double res = calculateModel.Calculate(str);
   long double test = 350.1;
   EXPECT_DOUBLE_EQ(res, test);
-
 }
 
 TEST(CalculateModel, s21_calc_one_val) {
@@ -17,7 +16,6 @@ TEST(CalculateModel, s21_calc_one_val) {
   long double res = calculateModel.Calculate(str);
   long double test = 5.345;
   EXPECT_DOUBLE_EQ(res, test);
-
 }
 
 TEST(CalculateModel, s21_calc_one_val_negate) {
@@ -26,7 +24,6 @@ TEST(CalculateModel, s21_calc_one_val_negate) {
   long double res = calculateModel.Calculate(str);
   long double test = -5.345;
   EXPECT_DOUBLE_EQ(res, test);
-
 }
 
 TEST(CalculateModel, s21_unary) {
@@ -59,7 +56,6 @@ TEST(CalculateModel, s21_calc_one_val_unary) {
   long double res = calculateModel.Calculate(str);
   long double test = 5.345;
   EXPECT_DOUBLE_EQ(res, test);
-
 }
 
 TEST(CalculateModel, s21_calc_one_val_sum) {
@@ -68,7 +64,6 @@ TEST(CalculateModel, s21_calc_one_val_sum) {
   long double res = calculateModel.Calculate(str);
   long double test = 2223.745;
   EXPECT_DOUBLE_EQ(res, test);
-
 }
 
 TEST(CalculateModel, s21_calc_one_val_sub) {
@@ -77,7 +72,6 @@ TEST(CalculateModel, s21_calc_one_val_sub) {
   long double res = calculateModel.Calculate(str);
   long double test = -220220786.1;
   EXPECT_DOUBLE_EQ(res, test);
-
 }
 
 TEST(CalculateModel, s21_calc_one_val_mul) {
@@ -86,7 +80,6 @@ TEST(CalculateModel, s21_calc_one_val_mul) {
   long double res = calculateModel.Calculate(str);
   long double test = -2;
   EXPECT_DOUBLE_EQ(res, test);
-
 }
 
 TEST(CalculateModel, s21_calc_one_val_del) {
@@ -95,7 +88,6 @@ TEST(CalculateModel, s21_calc_one_val_del) {
   long double res = calculateModel.Calculate(str);
   long double test = 0.5;
   EXPECT_DOUBLE_EQ(res, test);
-
 }
 
 TEST(CalculateModel, s21_calc_one_val_pow_two) {
@@ -104,7 +96,6 @@ TEST(CalculateModel, s21_calc_one_val_pow_two) {
   long double res = calculateModel.Calculate(str);
   long double test = 1;
   EXPECT_DOUBLE_EQ(res, test);
-
 }
 
 TEST(CalculateModel, s21_calc_one_val_pow_two_neg) {
@@ -113,7 +104,6 @@ TEST(CalculateModel, s21_calc_one_val_pow_two_neg) {
   long double res = calculateModel.Calculate(str);
   long double test = -1;
   EXPECT_DOUBLE_EQ(res, test);
-
 }
 
 TEST(CalculateModel, s21_calc_one_val_pow_three) {
@@ -122,7 +112,6 @@ TEST(CalculateModel, s21_calc_one_val_pow_three) {
   long double res = calculateModel.Calculate(str);
   long double test = -1;
   EXPECT_DOUBLE_EQ(res, test);
-
 }
 
 TEST(CalculateModel, s21_calc_sin) {
@@ -172,7 +161,6 @@ TEST(CalculateModel, s21_calc_atan) {
   long double res = calculateModel.Calculate(str);
   long double test = -4.580120;
   EXPECT_NEAR(test, res, std::abs(test - res) < 1e-7);
-
 }
 
 TEST(CalculateModel, s21_calc_sqrt) {
@@ -181,7 +169,6 @@ TEST(CalculateModel, s21_calc_sqrt) {
   long double res = calculateModel.Calculate(str);
   long double test = -8.02043043;
   EXPECT_NEAR(test, res, std::abs(test - res) < 1e-7);
-
 }
 
 TEST(CalculateModel, s21_calc_ln) {
@@ -190,7 +177,6 @@ TEST(CalculateModel, s21_calc_ln) {
   long double res = calculateModel.Calculate(str);
   long double test = 51.5039723647;
   EXPECT_NEAR(test, res, std::abs(test - res) < 1e-7);
-
 }
 
 TEST(CalculateModel, s21_calc_log) {
@@ -199,7 +185,6 @@ TEST(CalculateModel, s21_calc_log) {
   long double res = calculateModel.Calculate(str);
   long double test = 0.121859;
   EXPECT_NEAR(test, res, std::abs(test - res) < 1e-7);
-
 }
 
 TEST(CalculateModel, s21_calc_mod) {
@@ -208,7 +193,6 @@ TEST(CalculateModel, s21_calc_mod) {
   long double res = calculateModel.Calculate(str);
   long double test = 1.0018522243;
   EXPECT_NEAR(test, res, std::abs(test - res) < 1e-7);
-
 }
 
 TEST(CalculateModel, s21_calc_oper) {
@@ -217,7 +201,6 @@ TEST(CalculateModel, s21_calc_oper) {
   long double res = calculateModel.Calculate(str);
   long double test = 0.5555555555;
   EXPECT_NEAR(test, res, std::abs(test - res) < 1e-7);
-
 }
 
 TEST(CalculateModel, s21_calc_smart_bracket_one) {
@@ -236,50 +219,7 @@ TEST(CalculateModel, s21_calc_smart_bracket_two) {
     EXPECT_NEAR(test, res, std::abs(test - res) < 1e-7);
 }
 
-//
-//TEST(CalculateModel, s21_graph_one_x) {
-//  std::string str = "kX";
-//  long double value = 0.01;
-//  for (long double i = 0.01; i <= 15.05; i++) {
-//    long double result = s21_set_graph(str, value);
-//    EXPECT_DOUBLE_EQ(result, value, 1e-06);
-//  }
-//}
-//
-//TEST(CalculateModel, s21_graph_x) {
-//  std::string str = "kX";
-//  for (long value = 0.01; value <= 15.05; value++) {
-//    long double result = s21_set_graph(str, value);
-//    EXPECT_DOUBLE_EQ(result, value, 1e-06);
-//  }
-//}
-//
-//
-//TEST(CalculateModel, s21_valid_bracket) {
-//  std::string str = " ( ( 7 - 6 + 5 ) / 9 - 1";
-//  int res = s21_is_not_valid(str);
-//  int test = 1;
-//  ck_assert_int_eq(res, test);
-//}
-//
-//
-//TEST(CalculateModel, s21_valid_operation) {
-//  std::string str = " ( ( -  +  ) ) /";
-//  int res = s21_is_not_valid(str);
-//  int test = 1;
-//  ck_assert_int_eq(res, test);
-//}
-//
-//TEST(CalculateModel, s21_valid_operation_x) {
-//  std::string str = " ( ( kX -  +  ) ) /";
-//  int res = s21_is_not_valid(str);
-//  int test = 1;
-//  ck_assert_int_eq(res, test);
-//}
-
-
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
-

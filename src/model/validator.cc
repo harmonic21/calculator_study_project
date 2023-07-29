@@ -28,16 +28,16 @@ std::string Validator::RemoveAll() {
 }
 
 bool Validator::ValidateResultString() noexcept {
-  std::string equation = ResultEquationToString();
+  std::string equation = S21Trim(ResultEquationToString());
   bool result = true;
   int count_x = 0;
   int count_number = 0;
   int sum_bracket = 0;
   int count_exp = 0;
 
-  for (char i : equation) {
+  for (size_t i = 0; i < equation.size(); i++) {
     std::string member;
-    member.push_back(i);
+    member.push_back(equation[i]);
     if (s21::Utility::IsLeftBracket(member)) {
       sum_bracket++;
     } else if (s21::Utility::IsRightBracket(member)) {
@@ -51,6 +51,16 @@ bool Validator::ValidateResultString() noexcept {
     }
     if (s21::Utility::IsExp(member)) {
       count_exp++;
+    }
+    if ((utility_.IsOperationString(member) || member == "d") &&
+        (i == equation.size() - 1)) {
+      result = false;
+      break;
+    }
+    if ((utility_.IsOperationString(member) || member == "d") &&
+        (equation[i + 1] == ')')) {
+      result = false;
+      break;
     }
     member.clear();
   }
@@ -120,6 +130,9 @@ void Validator::CheckConsistencyNumber(const std::string &current) noexcept {
     InsertMember(current, "");
   } else if (s21::Utility::IsExp(last_member_) && current == "-") {
     stateDigit_[kExp] = 1;
+    InsertMember(current, "");
+  } else if (last_member_ == "-" && stateDigit_[kDigit] == 1 &&
+             s21::Utility::IsDigit(current)) {
     InsertMember(current, "");
   }
 }
@@ -219,6 +232,8 @@ void Validator::CheckStateDigit(const std::string &str) {
   if (s21::Utility::IsNumber(str) && str != "-") {
     stateDigit_[kDigit] = 1;
   } else if (str == "-" && last_member_ == "E") {
+    stateDigit_[kDigit] = 1;
+  } else if (last_member_ == "-" && stateDigit_[kDigit] == 1) {
     stateDigit_[kDigit] = 1;
   } else {
     FreshMap();

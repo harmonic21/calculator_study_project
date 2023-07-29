@@ -45,7 +45,12 @@ void StringTransformer::CheckNumber(std::list<EquationMember *> &list,
                                     std::string &str) {
   if (s21::Utility::IsNumber(str) && !s21::Utility::IsUnaryOperation(str)) {
     std::string::size_type sz;
-    long double value = s21::Utility::IsDot(str) ? 0 : std::stold(str, &sz);
+    long double value;
+    try {
+      value = s21::Utility::IsDot(str) ? 0 : std::stold(str, &sz);
+    } catch (...) {
+      value = 0;
+    }
     list.push_back(new EquationMember(value, Utility::kNumber));
   }
 }

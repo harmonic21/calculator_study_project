@@ -36,7 +36,7 @@ OBJ_TEST=$(notdir $(SRC_TEST:.cc=.o))
 #DIRECTORY
 OBJ_DIR=objects
 SRC_DIR=./SmartCalc ./model ./view ./controller
-TEST_DIR=test
+TEST_DIR=s21_test
 BD=./build/
 
 #INCLUDES
@@ -77,6 +77,7 @@ dvi:
 	latex ./Documentation/SmartCalc.tex
 	mv ./SmartCalc.dvi ./Documentation
 	rm -rf ./SmartCalc.aux ./SmartCalc.log
+	open ./Documentation/SmartCalc.dvi
 
 dist: install dvi
 	tar -cvf SmartCalc.tar Documentation/SmartCalc.dvi ./Applications/SmartCalc
@@ -90,18 +91,8 @@ tests: $(OBJ_TEST) $(OBJ) $(INCLUDE)
 	$(CC) $(FLAGS) $(addprefix $(OBJ_DIR)/, $(OBJ) $(OBJ_TEST)) $(TEST_FLAGS) -o test
 	./test
 
-gcov_report:CFLAGS += -coverage
-gcov_report: clean tests
-	./test
-	lcov -t "gcov_report" -o gcov_report.info -c -d ./
-	genhtml -o report gcov_report.info;
-
 valgrind: tests
 	valgrind --leak-check=full ./test
-
-cppcheck:
-	cppcheck --enable=all --suppress=missingIncludeSystem ./$(TEST_DIR)/*.cc ./view/* \
-	./model/* ./controller/*
 
 clean:
 	rm -rf $(OBJ_DIR) report test gcov_report.info ./$(BD)* ./$(BD).qmake.stash ./$(BD).qm
