@@ -24,6 +24,7 @@ std::string Validator::RemoveOneMember() {
 std::string Validator::RemoveAll() {
   result_equation_.clear();
   last_member_.clear();
+  FreshMap();
   return ResultEquationToString();
 }
 
